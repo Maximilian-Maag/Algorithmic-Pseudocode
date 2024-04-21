@@ -1,0 +1,57 @@
+% Set the Page Layout
+\documentclass[12pt]{article}
+\usepackage[inner = 2.0cm, outer = 2.0cm, top = 2.0cm, bottom = 2.0cm]{geometry}
+
+% Package to write pseudo-codes
+\usepackage{algorithm}
+
+% Remove the 'end' at the end of the algorithm
+\usepackage[noend]{algpseudocode}
+
+% Define Left Justified Comments
+\algnewcommand{\LeftComment}[1]{\Statex \(\triangleright\) #1}
+
+% Remove the Numbering of the Algorithm
+\usepackage{caption}
+\DeclareCaptionLabelFormat{algnonumber}{Algorithm}
+\captionsetup[algorithm]{labelformat = algnonumber}
+
+\begin{document}
+	\begin{algorithm}
+		\caption{Heapsort}
+		\begin{algorithmic}
+			\Function{heapSort}{A}
+				\State buildHeap(A)
+				\For{i $\leq$ length(A) downto 2}
+					\State exchange A[1], A[i]
+					\State heapsize--
+					\State heapify(A, 1)
+				\EndFor
+			\EndFunction
+			\Function{buildHeap}{A}
+				\State heapsize $\le$ length(A)
+				\For{i $\le$ floor($\frac{length}{2}$) downto 1}
+					\State heapifiy(A, i)
+				\EndFor
+			\EndFunction
+			\Function{heapify}{A, i}
+				\State le $\gets$ left(i)
+				\State re $\gets$ right(i)
+				\If{le $\leq$ heapsize \&\& (A[le]$>$A[re])}
+					\State largest $\gets$ le
+				\Else
+					\State largest $\gets$ i
+				\EndIf
+				\If{re $\leq$ heapsize \&\& (A[re] $>$A[largest])}
+					\State largest $\gets$ re
+				\EndIf
+				\If{largest $\neq$ i}
+					\State change A[i], A[largest]
+					\State heapify(A, largest)
+				\EndIf
+			\EndFunction
+		\end{algorithmic}
+	\end{algorithm}
+	\textbf{Note} : When using heapsort, what you want to do is to build a heap over an unsorted array. After heapyfieing that array, you'll take the root of the heap and stack into the sorted part of the array. Proceed until no elements are left to sort in the array. \\ \\
+	Keep in mind : the heapsort is an unstable algorithm. It is part of the $\mathcal{O}(n * log n)$ class. For more information refer to the wiki page: https://de.wikipedia.org/wiki/Heapsort
+\end{document}
